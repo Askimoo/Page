@@ -1,49 +1,18 @@
-var Expand = (function() {
-  var tile = $('.strips__strip');
-  var tileLink = $('.strips__strip > .strip__content');
-  var tileText = tileLink.find('.strip__inner-text');
-  var stripClose = $('.strip__close');
-  
-  var expanded  = false;
+<script type='text/javascript'>
+//<![CDATA[
+gsap.set('.main', {position:'fixed', background:'#fff', width:'100%', maxWidth:'1200px', height:'100%', top:0, left:'50%', x:'-50%'})
+gsap.set('.scrollDist', {width:'100%', height:'200%'})
+gsap.timeline({scrollTrigger:{trigger:'.scrollDist', start:'top top', end:'bottom bottom', scrub:1}})
+    .fromTo('.sky', {y:0},{y:-200}, 0)
+    .fromTo('.cloud1', {y:100},{y:-800}, 0)
+    .fromTo('.cloud2', {y:-150},{y:-500}, 0)
+    .fromTo('.cloud3', {y:-50},{y:-650}, 0)
+    .fromTo('.mountBg', {y:-10},{y:-100}, 0)
+    .fromTo('.mountMg', {y:-30},{y:-250}, 0)
+    .fromTo('.mountFg', {y:-50},{y:-600}, 0)
 
-  var open = function() {
-      
-    var tile = $(this).parent();
-
-      if (!expanded) {
-        tile.addClass('strips__strip--expanded');
-        // add delay to inner text
-        tileText.css('transition', 'all .5s .3s cubic-bezier(0.23, 1, 0.32, 1)');
-        stripClose.addClass('strip__close--show');
-        stripClose.css('transition', 'all .6s 1s cubic-bezier(0.23, 1, 0.32, 1)');
-        expanded = true;
-      } 
-    };
-  
-  var close = function() {
-    if (expanded) {
-      tile.removeClass('strips__strip--expanded');
-      // remove delay from inner text
-      tileText.css('transition', 'all 0.15s 0 cubic-bezier(0.23, 1, 0.32, 1)');
-      stripClose.removeClass('strip__close--show');
-      stripClose.css('transition', 'all 0.2s 0s cubic-bezier(0.23, 1, 0.32, 1)')
-      expanded = false;
-    }
-  }
-
-    var bindActions = function() {
-      tileLink.on('click', open);
-      stripClose.on('click', close);
-    };
-
-    var init = function() {
-      bindActions();
-    };
-
-    return {
-      init: init
-    };
-
-  }());
-
-Expand.init();
+$('#arrowBtn').on('mouseenter', (e)=>{ gsap.to('.arrow', {y:10, duration:0.8, ease:'back.inOut(3)', overwrite:'auto'}); })
+$('#arrowBtn').on('mouseleave', (e)=>{ gsap.to('.arrow', {y:0, duration:0.5, ease:'power3.out', overwrite:'auto'}); })
+$('#arrowBtn').on('click', (e)=>{ gsap.to(window, {scrollTo:innerHeight, duration:1.5, ease:'power1.inOut'}); }) // scrollTo requires the ScrollTo plugin (not to be confused w/ ScrollTrigger)
+//]]>
+</script>
